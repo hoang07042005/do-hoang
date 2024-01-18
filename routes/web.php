@@ -1,10 +1,8 @@
 <?php
 
-
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,42 +13,35 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//Route::get('/','HomeControllere@showWelcome');
+Route::get('home', 'App\Http\Controllers\HomeController@showWelcome');
+Route::get('about','App\Http\Controllers\AboutController@showDetails');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::get('about',function() {
+//    return 'About Content';
+//});
 
-Route::get('about', function () {
-    return 'About Content';
+Route::get('about/directions',function() {
+    return'Directions go here';
 });
 
-Route::get('about/directions', function () {
-    return 'Directions go here';
-});
-
-Route::any('submit-form', function () {
+Route::any('submit-form',function() {
     return 'Process Form';
 });
 
-Route::get('about/{theSubject}', function ($theSubject) {
-    return $theSubject. ' content goes here';
-});
+Route::get('about/{theSubject}', 'App\Http\Controllers\AboutController@showSubject');
 
 Route::get('about/classes/{theSubject}', function ($theSubject) {
     return " Content on $theSubject ";
 });
 
-Route::get('about/classes/{theArt}/{thePrice}', function ($theArt, $thePrice) {
-    return " The product: $theArt and $thePrice";
+Route::get('about/classes/{theArt}/{thePrince}',function ($theArt, $thePrince) {
+    return "The product: $theArt and $thePrince";
 });
 
-Route::get('where', function (){
-    return Redirect::route("directions");
+Route::get('where', function() {
+    return Redirect::route('direction');
 });
-
-
-// Route::class('/showWelcome', 'HomeController/@showWelcome');
-Route::get('/showWelcome', [HomeController::class, 'showWelcome']);
-Route::get('/user/{id}', [TestController::class, 'show']);
